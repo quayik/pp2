@@ -1,7 +1,0 @@
-C:\Users\Damir\source\repos\lab1\task4\bin\Debug\task4.exe.config
-C:\Users\Damir\source\repos\lab1\task4\bin\Debug\task4.exe
-C:\Users\Damir\source\repos\lab1\task4\bin\Debug\task4.pdb
-C:\Users\Damir\source\repos\lab1\task4\obj\Debug\task4.csprojAssemblyReference.cache
-C:\Users\Damir\source\repos\lab1\task4\obj\Debug\task4.csproj.CoreCompileInputs.cache
-C:\Users\Damir\source\repos\lab1\task4\obj\Debug\task4.exe
-C:\Users\Damir\source\repos\lab1\task4\obj\Debug\task4.pdb
