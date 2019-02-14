@@ -116,7 +116,7 @@ namespace Example1
                         if (history.Peek().DirContent.Length + history.Peek().FileContent.Length == 0) //игнор при пустом экране
                             break;
                         int index = history.Peek().SelectedIndex;
-                        if (index < history.Peek().DirContent.Length)
+                        if (index < history.Peek().DirContent.Length)   // если папка (у нас же сортированный список)
                         {
                             DirectoryInfo d = history.Peek().DirContent[index];
                             history.Push(new Layer
@@ -131,7 +131,7 @@ namespace Example1
                             curMode = FSIMode.File;
                             using (FileStream fs = new FileStream(history.Peek().FileContent[index - history.Peek().DirContent.Length].FullName, FileMode.Open, FileAccess.Read))
                             {
-                                using (StreamReader sr = new StreamReader(fs))
+                                using (StreamReader sr = new StreamReader(fs))      //если файл, то открываем, читаем
                                 {
                                     Console.BackgroundColor = ConsoleColor.White;
                                     Console.ForegroundColor = ConsoleColor.Black;
@@ -143,19 +143,19 @@ namespace Example1
 
                         }
                         break;
-                    case ConsoleKey.Backspace:
-                        if (curMode == FSIMode.DirectoryInfo)
+                    case ConsoleKey.Backspace:      // назад
+                        if (curMode == FSIMode.DirectoryInfo)   //из папаки
                         {
                             if (history.Count > 1)
                                 history.Pop();
                         }
                         else
                         {
-                            curMode = FSIMode.DirectoryInfo;
-                            Console.ForegroundColor = ConsoleColor.White;
+                            curMode = FSIMode.DirectoryInfo;        //из файла
+                            Console.ForegroundColor = ConsoleColor.White;   //возвращаем обычный цвет
                         }
                         break;
-                    case ConsoleKey.Escape:
+                    case ConsoleKey.Escape:     
                         exit = true;
                         break;
                     case ConsoleKey.Delete:
@@ -164,11 +164,11 @@ namespace Example1
                         index = history.Peek().SelectedIndex;
                         int ind = index;
                         if (index < history.Peek().DirContent.Length)
-                            history.Peek().DirContent[index].Delete(true);
+                            history.Peek().DirContent[index].Delete(true);  //если папка, то удаляем и то, что внутри
                         else
-                            history.Peek().FileContent[index - history.Peek().DirContent.Length].Delete();
-                        int numofcontent = history.Peek().DirContent.Length + history.Peek().FileContent.Length - 2;
-                        history.Pop();
+                            history.Peek().FileContent[index - history.Peek().DirContent.Length].Delete(); // если файл, то просто дел
+                        int numofcontent = history.Peek().DirContent.Length + history.Peek().FileContent.Length - 2;    //сколько элементов осталось
+                        history.Pop();          //чтобы обновился экран
                         if (history.Count == 0)
                         {
                             Layer nl = new Layer
@@ -177,7 +177,7 @@ namespace Example1
                                 FileContent = dir.GetFiles(),
                                 SelectedIndex = Math.Min(Math.Max(numofcontent, 0), ind)
                             };
-                            history.Push(nl);
+                            history.Push(nl);   //даже если мы все удалили он не вылетает назад
                         }
                         else
                         {
@@ -210,7 +210,7 @@ namespace Example1
                             fullname = history.Peek().FileContent[index - history.Peek().DirContent.Length].FullName;
                             selectedMode = 2;
                         }
-                        fullname = fullname.Remove(fullname.Length - name.Length);
+                        fullname = fullname.Remove(fullname.Length - name.Length);  //удаляем имя,чтобы дать новое
                         Console.WriteLine("New name for {0}:", name);
                         Console.WriteLine(fullname);
                         string newname = Console.ReadLine();
@@ -218,8 +218,8 @@ namespace Example1
                         Console.WriteLine(selectedMode);
                         if (selectedMode == 1)
                         {
-                            new DirectoryInfo(history.Peek().DirContent[index].FullName).MoveTo(fullname + newname);
-                        }
+                            new DirectoryInfo(history.Peek().DirContent[index].FullName).MoveTo(fullname + newname);    //переименовали
+                        }                           //П.С. по идее заменили
                         else
                             new FileInfo(history.Peek().FileContent[index - history.Peek().DirContent.Length].FullName).MoveTo(fullname + newname);
                         index = history.Peek().SelectedIndex;
