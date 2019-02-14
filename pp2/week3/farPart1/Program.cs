@@ -7,50 +7,52 @@ using System.Threading.Tasks;
 
 namespace farPart1
 {
-    
-    class Program
+
+    class Layer
     {
-        class Layer
+        int selectedItemIndex;
+        public FileSystemInfo[] Items
         {
-            int selectedItemIndex;
-            public FileSystemInfo[] Items
-            {
-                get;
-                set;
-            }
+            get;
+            set;
+        }
 
-            public int SelectedItemIndex
+        public int SelectedItemIndex
+        {
+            get
             {
-                get
+                return selectedItemIndex;
+            }
+            set
+            {
+                if (value >= Items.Length)
                 {
-                    return selectedItemIndex;
+                    selectedItemIndex = 0;
                 }
-                set
+                else if (value < 0)
                 {
-                    if (value >= Items.Length)
-                    {
-                        selectedItemIndex = 0;
-                    }
-                    else if (value < 0)
-                    {
-                        selectedItemIndex = Items.Length - 1;
-                    }
-                    else
-                    {
-                        selectedItemIndex = value;
-                    }
+                    selectedItemIndex = Items.Length - 1;
+                }
+                else
+                {
+                    selectedItemIndex = value;
                 }
             }
+        }
 
-            public Layer(FileSystemInfo[] items)
+        public Layer(FileSystemInfo[] items)
+        {
+            selectedItemIndex = 0;
+            this.Items = items;
+        }
+        public void Draw()
+        {
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.Clear();
+            for (int j = 0; j < 2; ++j)
             {
-                selectedItemIndex = 0;
-                this.Items = items;
-            }
-            public void Draw()
-            {
-                Console.BackgroundColor = ConsoleColor.Black;
-                Console.Clear();
+
+
                 for (int i = 0; i < Items.Length; ++i)
                 {
                     if (i == selectedItemIndex)
@@ -61,10 +63,28 @@ namespace farPart1
                     {
                         Console.BackgroundColor = ConsoleColor.Black;
                     }
-                    Console.WriteLine(Items[i].Name);
+
+
+                    if (Items[i].GetType() == typeof(DirectoryInfo) && j == 0)
+                    {
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.WriteLine(i + 1 + ". " + Items[i].Name);
+                    }
+                    else if (Items[i].GetType() != typeof(DirectoryInfo) && j == 1)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.WriteLine(i + 1 + ". " + Items[i].Name);
+                    }
+
+
+
                 }
             }
         }
+    }
+    class Program
+    {
+        
         static void Main(string[] args)
         {
             DirectoryInfo dirInfo = new DirectoryInfo(@"C:\test");
