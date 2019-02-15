@@ -9,41 +9,25 @@ namespace task3
 {
     class Program
     {
-        static int cnt = 0;
-        public FileSystemInfo[] Items
-        {
-            get;
-            set;
-        }
-
-        public static void Out(FileSystemInfo[] fsi)
-        {
-            for (int i = 0; i < fsi.Length; ++i)
-            {
-                for (int j = 0; j < cnt; ++j)
-                {
-                    Console.Write("\t");        //для табуляции
-                }
-
-                if (fsi[i].GetType() == typeof(DirectoryInfo))
-                {
-                    Console.WriteLine(fsi[i].Name);
-                    DirectoryInfo d = fsi[i] as DirectoryInfo;
-                    cnt++;
-                    Out(d.GetFileSystemInfos());        //если папка, открываем ее используя рекурсию
-                }
-                else
-                {
-                    Console.WriteLine(fsi[i].Name);     //если файл, просто пишем имя
-                }
-                if (i == fsi.Length - 1) cnt--;     //чтобы было правильное количество табов
-            }
-        }
-
         static void Main(string[] args)
         {
             DirectoryInfo dir = new DirectoryInfo(@"C:\test");
-            Out(dir.GetFileSystemInfos());
+            PrintInfo(dir, 0);
+        }
+
+        static void PrintInfo(FileSystemInfo fsi, int k)
+        {
+            string s = new string('\t', k);
+            Console.WriteLine(s + fsi.Name);
+
+            if (fsi.GetType() == typeof(DirectoryInfo))
+            {
+                FileSystemInfo[] arr = ((DirectoryInfo)fsi).GetFileSystemInfos();
+                for (int i = 0; i < arr.Length; ++i)
+                {
+                    PrintInfo(arr[i], k + 1);
+                }
+            }
         }
     }
 }
