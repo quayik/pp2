@@ -97,10 +97,7 @@ namespace Example1
                 if (curMode == FSIMode.DirectoryInfo)
                 {
                     history.Peek().Draw();
-                    Console.ForegroundColor = ConsoleColor.DarkMagenta;
-                    Console.BackgroundColor = ConsoleColor.Black;
-                    Console.WriteLine("\n" + "\t" + 
-                        "rename: F6 || delete: del || back: backspace || open/confirm: enter || exit: esc"); //чтобы не забыть 
+                    
                     Console.ForegroundColor = ConsoleColor.White;
                 }
                 ConsoleKeyInfo consolekeyInfo = Console.ReadKey();
