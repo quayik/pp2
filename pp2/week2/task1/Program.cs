@@ -16,7 +16,7 @@ namespace task1
 
             for (int i = 0; i < str.Length; ++i)
             {
-                if (str[str.Length - 1 - i] != str[i])
+                if (str[str.Length - 1 - i] != str[i])  //полиндром или нет
                 {
                     ok = false;
                     break;
@@ -38,7 +38,7 @@ namespace task1
             FileStream fs = new FileStream(@"C:\test\innerTest\hello.txt", FileMode.Open, FileAccess.Read);
             StreamReader sr = new StreamReader(fs);
 
-            string line = sr.ReadLine();
+            string line = sr.ReadLine();    //открываем, читаем файл, все, что внутри передаем в строку
 
             Solve(line);
 
