@@ -22,7 +22,7 @@ namespace task3
             {
                 for (int j = 0; j < cnt; ++j)
                 {
-                    Console.Write("\t");
+                    Console.Write("\t");        //для табуляции
                 }
 
                 if (fsi[i].GetType() == typeof(DirectoryInfo))
@@ -30,13 +30,13 @@ namespace task3
                     Console.WriteLine(fsi[i].Name);
                     DirectoryInfo d = fsi[i] as DirectoryInfo;
                     cnt++;
-                    Out(d.GetFileSystemInfos());
+                    Out(d.GetFileSystemInfos());        //если папка, открываем ее используя рекурсию
                 }
                 else
                 {
-                    Console.WriteLine(fsi[i].Name);
+                    Console.WriteLine(fsi[i].Name);     //если файл, просто пишем имя
                 }
-                if (i == fsi.Length - 1) cnt--;
+                if (i == fsi.Length - 1) cnt--;     //чтобы было правильное количество табов
             }
         }
 
