@@ -21,14 +21,14 @@ namespace task2
         }
         static string Solve(string str)
         {
-            string[] x = str.Split(' ');
-            string Pnum = null;
+            string[] x = str.Split(' ');    //пробел разделитель
+            string Pnum = null;     //пустя строка
 
             for (int i = 0; i < x.Length; ++i)
             {
                 if (Prime(int.Parse(x[i])))
                 {
-                    Pnum = Pnum + " " + x[i];
+                    Pnum = Pnum + " " + x[i];       //ппростые числадобавляем в строку
 
                 }
             }
@@ -41,7 +41,7 @@ namespace task2
 
             string line = sr.ReadLine();
 
-            File.WriteAllText(@"C:\test\innerTest\output.txt", Solve(line));
+            File.WriteAllText(@"C:\test\innerTest\output.txt", Solve(line));        //создаем новый файл внутрь пишем ответ
 
 
             sr.Close();
