@@ -19,25 +19,35 @@ namespace task2
         {
 
         }
-        public void GetLetter()
+        public string GetLetter()
         {
             if (Points < 100 && Points >= 90)
-                Console.WriteLine("A");
+                return "A";
             else if (75 <= Points && Points < 90)
-                Console.WriteLine("B");
+                return "B";
             else if (60 <= Points && Points < 75)
-                Console.WriteLine("C");
+                return "C";
             else if (50 <= Points && Points < 60)
-                Console.WriteLine("D");
-            else Console.WriteLine("F");
+                return "D";
+            else return "F";
 
+        }
+        public void ToString()
+        {
+            
+            Console.WriteLine(Points + " is " + GetLetter());
         }
     }
     class Program
     {
         static void Main(string[] args)
         {
-            F1();
+            Mark one = new Mark()
+            {
+                Points = 95
+            };
+            one.GetLetter();
+            one.ToString();
 
         }
         private static void F2()
