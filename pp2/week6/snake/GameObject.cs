@@ -31,7 +31,6 @@ namespace Snake
             {
                 Console.SetCursorPosition(body[i].X, body[i].Y);
                 Console.Write(sign);
-                Console.CursorVisible = false;
             }
         }
     }

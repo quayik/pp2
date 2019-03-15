@@ -23,20 +23,17 @@ namespace Snake
             string name = string.Format("Levels/Level{0}.txt", level);
             StreamReader sr = new StreamReader(name);
 
-            int r = 0;
-            while (!sr.EndOfStream)
+            for(int r = 0; r < 40; ++r)
             {
                 string line = sr.ReadLine();
-                for (int c = 0; c < line.Length; ++c)
+                for (int c = 0; c < 40; ++c)
                 {
                     if (line[c] == '#')
                     {
                         body.Add(new Point { X = c, Y = r });
                     }
                 }
-                r++;
             }
-
             sr.Close();
         }
     }

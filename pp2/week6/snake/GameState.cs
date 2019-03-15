@@ -16,16 +16,20 @@ namespace Snake
 
         public GameState()
         {
-            Console.SetWindowSize(40, 40);
-            Console.SetBufferSize(40, 40);
+            Console.SetWindowSize(40, 41);
+            Console.SetBufferSize(40, 41);
             Console.CursorVisible = false;
         }
         public void Draw()
         {
-            if(!end)
-            w.Draw();
+            if (!end)
+            {
+                w.Draw();
+            }
+
             f.Draw();
             b.Draw();
+
             
             
         }
@@ -37,6 +41,7 @@ namespace Snake
                 eating = true;
                 w.Eat(f.body[0]);
                 Bally.Score += 10;
+                f.Generate();
                 foreach (Point p in b.body)
                 {
                     if (f.body[0].X == p.X && f.body[0].Y == p.Y)
@@ -47,7 +52,7 @@ namespace Snake
                 }
                 foreach (Point p in w.body)
                 {
-                    if (p.X == f.body[0].X && p.Y == f.body[0].Y)
+                    if (p.X == f.body[0].X && p.Y == f.body[0].Y && !eating)
                     {
                         f.Generate();
                         f.Draw();
@@ -61,7 +66,7 @@ namespace Snake
             end = true;
             Console.SetCursorPosition(15, 20);
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("GAME OVER!\n" + "YOUR SCORE IS " + Bally.Score);
+            Console.WriteLine("GAME OVER!\n" + "YOUR SCORE IS " + (Bally.Score + Bally.PrevS));
         }
         void CheckWall()
         {
@@ -148,12 +153,12 @@ namespace Snake
             }
 
             CheckFood();
-            if (Bally.Score >= 30)
+            if (Bally.Score >= 20)
             {
-                
                 b.body.Clear();
                 Console.Clear();
                 b.LoadLevel(2);
+                Bally.PrevS += Bally.Score;
                 Bally.Score = 0;
             }
             CheckWall();
