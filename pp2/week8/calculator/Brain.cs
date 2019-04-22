@@ -93,22 +93,44 @@ namespace calculator
 
         void Operation(string msg, bool isInput)
         {
+            
             if (isInput)
             {
-                calcState = CalcState.Operation;
+                operation = msg;
 
-                if (operation.Length != 0)
+                if (operation == "C" || operation == "<" || operation == "~")
                 {
-                    PerformCalculation();
+                    if (operation == "C")
+                    {
+                        calcState = CalcState.Zero;
+                        resultNumber = "";
+                        tempNumber = "";
+                    }
+
+                    else if (operation == "<")
+                    {
+                        //resultNumber = tempNumber.Remove(tempNumber.Length - 1, 1);
+                        tempNumber = tempNumber.Remove(tempNumber.Length - 1, 1);
+                    }
+
+                    else if (operation == "~")
+                    {
+                        int d = int.Parse(tempNumber);
+                        tempNumber = (-1 * d).ToString();
+                    }
+
+                    changeTextDelegate.Invoke(tempNumber);
+                }
+                else
+                {
+                    calcState = CalcState.Operation;
+                    if (resultNumber == "")
+                    {
+                        resultNumber = tempNumber;
+                    }
                     tempNumber = "";
                 }
-
-                if (resultNumber == "")
-                {
-                    resultNumber = tempNumber;
-                }
-                operation = msg;
-                tempNumber = "";
+                
             }
             else
             {
@@ -156,14 +178,7 @@ namespace calculator
                 resultNumber = (int.Parse(resultNumber) / int.Parse(tempNumber)).ToString();
             }
 
-            else if (operation == "C")
-            {
-                calcState = CalcState.Zero;
-                resultNumber = "";
-                tempNumber = "";
-                
-                
-            }
+            
         }
     }
 }

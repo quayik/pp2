@@ -28,7 +28,7 @@ namespace calculator
 
         public static bool IsOperation(char c)
         {
-            char[] arr = new char[] { '+', '-', '*', '/', 'C' };
+            char[] arr = new char[] { '+', '-', '*', '/', 'C', '<', '~' };
             return arr.Contains(c);
         }
 
