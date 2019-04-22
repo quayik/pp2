@@ -41,7 +41,8 @@ namespace calculator
                     AccumulateDigits(msg, false);
                     break;
                 case CalcState.Operation:
-                    Operation(msg, false);
+                    // Operation(msg, false);
+                    AccumulateDigits(msg, true);
                     break;
                 case CalcState.Result:
                     AccumulateDigits(msg, false);
@@ -72,6 +73,7 @@ namespace calculator
             {
                 calcState = CalcState.AccumulateDigits;
                 tempNumber += msg;
+
                 changeTextDelegate.Invoke(tempNumber);
             }
             else
@@ -124,18 +126,26 @@ namespace calculator
                 else
                 {
                     calcState = CalcState.Operation;
-                    if (resultNumber == "")
+
+                    if (resultNumber != "" && tempNumber != "")
+                    {
+                        PerformCalculation();
+                    }
+
+                    else if (resultNumber == "")
                     {
                         resultNumber = tempNumber;
                     }
                     tempNumber = "";
+
+                    
                 }
                 
             }
-            else
-            {
-                AccumulateDigits(msg, true);
-            }
+          //  else
+           // {
+             //   AccumulateDigits(msg, true);
+            //}
         }
 
         void Result(string msg, bool isInput)
