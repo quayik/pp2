@@ -8,33 +8,33 @@ namespace calculator
 {
     class Rules
     {
-        public static bool IsDigit(char c)
+        public static bool IsDigit(string c)
         {
-            char[] arr = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+            string[] arr = new string[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
             return arr.Contains(c);
         }
 
-        public static bool IsNonZeroDigit(char c)
+        public static bool IsNonZeroDigit(string c)
         {
-            char[] arr = new char[] {  '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+            string[] arr = new string[] { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
             return arr.Contains(c);
         }
 
-        public static bool IsZero(char c)
+        public static bool IsZero(string c)
         {
-            char[] arr = new char[] { '0' };
+            string[] arr = new string[] { "0" };
             return arr.Contains(c);
         }
 
-        public static bool IsOperation(char c)
+        public static bool IsOperation(string c)
         {
-            char[] arr = new char[] { '+', '-', '*', '/', 'C', '<', '~' };
+            string[] arr = new string[] { "+", "-", "*", "/", "C", "<", "±" };
             return arr.Contains(c);
         }
 
-        public static bool IsResult(char c)
+        public static bool IsResult(string c)
         {
-            char[] arr = new char[] { '=' };
+            string[] arr = new string[] { "=" };
             return arr.Contains(c);
         }
     }

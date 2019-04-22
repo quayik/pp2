@@ -60,7 +60,7 @@ namespace calculator
             }
             else
             {
-                if (Rules.IsNonZeroDigit(msg[0]))
+                if (Rules.IsNonZeroDigit(msg))
                 {
                     AccumulateDigits(msg, true);
                 }
@@ -78,15 +78,15 @@ namespace calculator
             }
             else
             {
-                if (Rules.IsDigit(msg[0]))
+                if (Rules.IsDigit(msg))
                 {
                     AccumulateDigits(msg, true);
                 }
-                else if (Rules.IsOperation(msg[0]))
+                else if (Rules.IsOperation(msg))
                 {
                     Operation(msg, true);
                 }
-                else if (Rules.IsResult(msg[0]))
+                else if (Rules.IsResult(msg))
                 {
                     Result(msg, true);
                 }
@@ -98,24 +98,27 @@ namespace calculator
             
             if (isInput)
             {
-                operation = msg;
+                //C, <, ±
 
-                if (operation == "C" || operation == "<" || operation == "~")
+                if (msg == "C" || msg == "<" || msg == "±")
                 {
-                    if (operation == "C")
+                    if (msg == "C")
                     {
                         calcState = CalcState.Zero;
                         resultNumber = "";
                         tempNumber = "";
                     }
 
-                    else if (operation == "<")
+                    //barinde msg, operation ozgerip, PerformCalculation
+                    //ishinde tappai ignor bop kalady
+
+                    else if (msg == "<")
                     {
                         //resultNumber = tempNumber.Remove(tempNumber.Length - 1, 1);
                         tempNumber = tempNumber.Remove(tempNumber.Length - 1, 1);
                     }
 
-                    else if (operation == "~")
+                    else if (msg == "±")
                     {
                         int d = int.Parse(tempNumber);
                         tempNumber = (-1 * d).ToString();
@@ -125,6 +128,7 @@ namespace calculator
                 }
                 else
                 {
+                    operation = msg;
                     calcState = CalcState.Operation;
 
                     if (resultNumber != "" && tempNumber != "")
@@ -136,9 +140,8 @@ namespace calculator
                     {
                         resultNumber = tempNumber;
                     }
-                    tempNumber = "";
 
-                    
+                    tempNumber = "";
                 }
                 
             }
@@ -161,11 +164,12 @@ namespace calculator
                 changeTextDelegate.Invoke(resultNumber);
                 
 
-            }else if (Rules.IsOperation(msg[0]))
+            }else if (Rules.IsOperation(msg))
             {
                 Operation(msg, true);
             }
         }
+
         void PerformCalculation()
         {
             if (operation == "+")
