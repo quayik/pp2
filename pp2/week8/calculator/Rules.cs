@@ -28,13 +28,19 @@ namespace calculator
 
         public static bool IsOperation(string c)
         {
-            string[] arr = new string[] { "+", "-", "*", "/", "C", "<", "±" };
+            string[] arr = new string[] { "+", "-", "*", "/", "C", "<", "±", "fib", "cop", "x^2", "x^3", "x^y", "x!" };
             return arr.Contains(c);
         }
 
         public static bool IsResult(string c)
         {
             string[] arr = new string[] { "=" };
+            return arr.Contains(c);
+        }
+
+        public static bool IsUnaryOperation(string c)
+        {
+            string[] arr = new string[] { "fib", "x^2", "x^3", "x!" };
             return arr.Contains(c);
         }
     }

@@ -126,6 +126,43 @@ namespace calculator
 
                     changeTextDelegate.Invoke(tempNumber);
                 }
+                else if (Rules.IsUnaryOperation(msg))
+                {
+                    if (msg == "fib")
+                    {
+                        int input = int.Parse(tempNumber);
+                        int Fib(int a)
+                        {
+                            if (a == 0) return 0;
+                            else if (a == 1) return 1;
+                            else return Fib(a - 1) + Fib(a - 2);
+                        }
+
+                        tempNumber = Fib(input).ToString();
+                    }
+
+                    else if(msg == "x^2")
+                    {
+                        tempNumber = ((int.Parse(tempNumber)) * (int.Parse(tempNumber))).ToString() ;
+                    }
+
+                    else if (msg == "x^3")
+                    {
+                        tempNumber = ((int.Parse(tempNumber)) * (int.Parse(tempNumber)) * int.Parse(tempNumber)).ToString();
+                    }
+
+                    else if (msg == "x!")
+                    {
+                        int n = int.Parse(tempNumber);
+                        for (int i = 2; i < n; ++i)
+                        {
+                            tempNumber = ((int.Parse(tempNumber)) * i).ToString();
+                        }
+                        
+                    }
+
+                    changeTextDelegate.Invoke(tempNumber);
+                }
                 else
                 {
                     operation = msg;
@@ -192,7 +229,38 @@ namespace calculator
                 resultNumber = (int.Parse(resultNumber) / int.Parse(tempNumber)).ToString();
             }
 
-            
+            else if (operation == "cop")
+            {
+                int x = new int();
+                int IsCop(int a, int b)
+                {
+                    if (a > b) x = a;
+                    else x = b;
+
+                    for (int i = 2; i < x; i++)
+                    {
+                        if (a % i == 0 && b % i == 0 )
+                        {
+                            // for(int j = 2; j < b; ++j)
+                            //{
+                            //   if ((b % j == 0) && i == j)
+                            //    {
+                            //      return j;
+                            //   }
+                            // }
+                            return i;
+                        } 
+                        
+                    }
+                    return 1;
+                }
+                resultNumber = IsCop(int.Parse(resultNumber), int.Parse(tempNumber)).ToString();
+            }
+
+            else if (operation == "x^y")
+            {
+                resultNumber = (Math.Pow(int.Parse(resultNumber), int.Parse(tempNumber))).ToString();
+            }
         }
     }
 }
